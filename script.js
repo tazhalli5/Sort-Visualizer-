@@ -56,7 +56,6 @@ async function bubbleSort() {
     document.getElementById("sortBtn").disabled = false;
 }
 
-// Initialize
 async function insertionSort() {
     let bars = document.getElementsByClassName("bar");
     disableButtons(true);
@@ -69,27 +68,22 @@ async function insertionSort() {
         bars[i].style.backgroundColor = "#e74c3c"; // Red
 
         while (j >= 0 && array[j] > key) {
-            bars[j].style.backgroundColor = "#f1c40f"; // Yellow (comparing)
+            bars[j].style.backgroundColor = "#f1c40f"; // Yellow
             
             array[j + 1] = array[j];
-            // Update visual height
             bars[j + 1].style.height = `${array[j + 1]}px`;
             
             j = j - 1;
-            await sleep(50); // Small delay for animation
-
-            // Reset color after move
-            for(let k = 0; k < i; k++) {
-                bars[k].style.backgroundColor = "#2ecc71"; // Green (sorted part)
-            }
+            await sleep(50);
         }
         array[j + 1] = key;
         bars[j + 1].style.height = `${key}px`;
-        bars[i].style.backgroundColor = "#2ecc71";
+        
+        // Mark sorted section as green
+        for(let k = 0; k <= i; k++) {
+            bars[k].style.backgroundColor = "#2ecc71";
+        }
     }
-    
-    // Final color sweep to ensure all are green
-    for (let bar of bars) bar.style.backgroundColor = "#2ecc71";
     disableButtons(false);
 }
 
@@ -101,7 +95,6 @@ async function mergeSort() {
 
 async function mergeSortRecursive(start, end) {
     if (start >= end) return;
-
     let mid = Math.floor((start + end) / 2);
     await mergeSortRecursive(start, mid);
     await mergeSortRecursive(mid + 1, end);
@@ -112,11 +105,9 @@ async function merge(start, mid, end) {
     let bars = document.getElementsByClassName("bar");
     let left = array.slice(start, mid + 1);
     let right = array.slice(mid + 1, end + 1);
-
     let i = 0, j = 0, k = start;
 
     while (i < left.length && j < right.length) {
-        await sleep(50);
         if (left[i] <= right[j]) {
             array[k] = left[i];
             i++;
@@ -124,30 +115,34 @@ async function merge(start, mid, end) {
             array[k] = right[j];
             j++;
         }
-        // Update visual
         bars[k].style.height = `${array[k]}px`;
         bars[k].style.backgroundColor = "#2ecc71";
+        await sleep(50);
         k++;
     }
 
     while (i < left.length) {
-        await sleep(50);
         array[k] = left[i];
         bars[k].style.height = `${array[k]}px`;
         bars[k].style.backgroundColor = "#2ecc71";
-        i++;
-        k++;
+        await sleep(50);
+        i++; k++;
     }
 
     while (j < right.length) {
-        await sleep(50);
         array[k] = right[j];
         bars[k].style.height = `${array[k]}px`;
         bars[k].style.backgroundColor = "#2ecc71";
-        j++;
-        k++;
+        await sleep(50);
+        j++; k++;
     }
 }
 
 
+function disableButtons(disabled) {
+    const buttons = document.querySelectorAll("button");
+    buttons.forEach(btn => btn.disabled = disabled);
+}
+
+// Initialize the app -
 resetArray();
