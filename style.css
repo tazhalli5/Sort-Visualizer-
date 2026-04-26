@@ -44,11 +44,14 @@ header { padding: 20px; text-align: center; }
 }
 
 .bar {
-    flex: 1;
-    background: linear-gradient(to top, var(--primary), #818cf8);
-    border-radius: 4px 4px 0 0;
-    transition: 0.1s height ease;
+    width: 20px;
+    margin: 1px;
+    background-color: #6366f1;
+    display: inline-block;
+
+    transition: height 0.1s ease; 
 }
+
 
 
 .toolbar {
