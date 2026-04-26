@@ -11,7 +11,7 @@ A professional, high-performance web-based tool designed to provide a real-time 
 * **Interactive UI**: Modern dark-mode interface featuring glassmorphism effects and intuitive controls.
 
 # 🚀 Live Demo 
-https://tazhalli5.github.io/Sort-Visualizer-/
+https://tazhalli5.github.io/Algorithm-Visualizer-/
 
 # 🛠️ Tech Stack
 
