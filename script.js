@@ -158,8 +158,12 @@ async function quickSort() {
 
 async function qSort(start, end, bars) {
     if (start >= end) return;
+
     let index = await partition(start, end, bars);
-    // Sequential recursion for animation stability
+    
+    // Reset pivot color before moving to next segment
+    bars[index].style.backgroundColor = "#10b981"; 
+
     await qSort(start, index - 1, bars);
     await qSort(index + 1, end, bars);
 }
@@ -167,25 +171,33 @@ async function qSort(start, end, bars) {
 async function partition(start, end, bars) {
     let pivotValue = array[end];
     let pivotIndex = start;
-    bars[end].style.backgroundColor = "#ef4444"; // Red pivot
+    
+    // Highlight the pivot in RED
+    bars[end].style.backgroundColor = "#ef4444"; 
 
     for (let i = start; i < end; i++) {
-        bars[i].style.backgroundColor = "#f59e0b"; // Scanning color
+        // Highlight the scanning bar in YELLOW
+        bars[i].style.backgroundColor = "#f59e0b"; 
         await sleep();
+
         if (array[i] < pivotValue) {
             [array[i], array[pivotIndex]] = [array[pivotIndex], array[i]];
             bars[i].style.height = `${array[i]}px`;
             bars[pivotIndex].style.height = `${array[pivotIndex]}px`;
             pivotIndex++;
         }
-        bars[i].style.backgroundColor = "#6366f1";
+        // Reset non-pivot bars back to PURPLE/INDIGO
+        bars[i].style.backgroundColor = "#6366f1"; 
     }
+
+    // Swap pivot into place
     [array[pivotIndex], array[end]] = [array[end], array[pivotIndex]];
     bars[pivotIndex].style.height = `${array[pivotIndex]}px`;
     bars[end].style.height = `${array[end]}px`;
-    bars[pivotIndex].style.backgroundColor = "#10b981";
+    
     return pivotIndex;
 }
+
 
 // Ensure the first array is drawn when page loads
 document.addEventListener("DOMContentLoaded", resetArray);
