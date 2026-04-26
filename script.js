@@ -132,6 +132,7 @@ async function merge(start, mid, end) {
         k++;
     }
 }
+}
 async function quickSort() {
     let bars = document.getElementsByClassName("bar");
     await qSort(0, array.length - 1, bars);
@@ -182,7 +183,7 @@ async function partition(start, end, bars) {
     
     bars[pivotIndex].style.backgroundColor = "#10b981"; // Pivot is now in correct spot
     return pivotIndex;
-}
+
 }
 
 resetArray();
